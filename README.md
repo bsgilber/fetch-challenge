@@ -38,7 +38,10 @@ echo '{"doc1": "text", "doc2": "text", "ngram_length": 5}' | curl -H "Content-Ty
 
 
 ### Resources
-FastAPI, have only ever used Flask to build an API; very good documentation.
+FastAPI, I have only ever used Flask to build an API, this very good documentation.
+https://github.com/tiangolo/fastapi
+
+And the FastAPI Docker resource
 https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
 
 Boiler plate NGram code

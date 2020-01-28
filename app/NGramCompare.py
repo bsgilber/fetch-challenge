@@ -10,13 +10,16 @@ class NGramCompare(BaseDocSimilarity.BaseDocSimilarity):
         Keyword arguments:
         left_doc -- first text document to compare (string input, becomes list)
         right_doc -- second text document to compare (string input, becomes list)
-        ngram_length -- length of the ngram desired (int)
+        ngram_length -- length of the ngram desired (int, > 0)
         **kwargs -- for optional keyword arguments:
                         stop_words -- words to remove from both texts (list[string])
                         regex -- regex pattern to replace with spaces (regex pattern)
         """
         super().__init__(**kwargs)
 
+        if ngram_length < 1:
+            raise ValueError('NGram length must be greater than 0.')
+        
         self._ngram_length = ngram_length
         self._ngram_data = {}
 
@@ -24,6 +27,8 @@ class NGramCompare(BaseDocSimilarity.BaseDocSimilarity):
         return
 
     def _calculate_similarity(self):
+        """Calculate an Intersection/Union similarity metric for left and right docs.
+        """
         unique_ngrams = list(set(self._ngram_data['right_doc'] + self._ngram_data['left_doc']))
         
         return len([ngram for ngram in self._ngram_data['right_doc'] if ngram in self._ngram_data['left_doc']]) / float(len(unique_ngrams)), len([ngram for ngram in self._ngram_data['left_doc'] if ngram in self._ngram_data['right_doc']]) / float(len(unique_ngrams))

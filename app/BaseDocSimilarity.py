@@ -9,7 +9,7 @@ stopword_filename = path.abspath(path.join(path.dirname(__file__),
 
 class BaseDocSimilarity(ABC):
     """Abstract base class for text document comparison"""
-    def __init__(self, left_doc, right_doc, *args, **kwargs):
+    def __init__(self, *, left_doc, right_doc, **kwargs):
         """Core init syntax for similarity base class
 
         Keyword arguments:
@@ -22,7 +22,7 @@ class BaseDocSimilarity(ABC):
         self._left_doc = left_doc
         self._right_doc = right_doc
 
-        self._similarity_value = None
+        self._similarity_values = None
         
         self._stop_words = kwargs.get('stop_words', None)
         self._regex = kwargs.get('regex', r'[^a-zA-Z0-9\'\,\.\s]')
@@ -35,13 +35,13 @@ class BaseDocSimilarity(ABC):
         self._left_doc = self._clean(self._left_doc)
         self._right_doc = self._clean(self._right_doc)
         
-        self._similarity_value = self._calculate_similarity()
+        self._similarity_values = self._calculate_similarity()
         
-        return self._similarity_value
+        return self._similarity_values
 
     def _load(self):
         """Used to load stop words file from local file if not provided"""
-         with open(stopword_filename) as f:
+        with open(stopword_filename) as f:
             stop_words = f.readlines()
             stop_words = [word.strip() for word in stop_words]
 

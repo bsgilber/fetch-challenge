@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from NGramCompare import NGramCompare
+from . import NGramCompare
 
 
 # TODO: add optional parameters
@@ -14,6 +14,16 @@ class DocsIn(BaseModel):
 app = FastAPI()
 
 
+@app.get("/")
+def read_root():
+    return {"Hello": "Fetch"}
+ 
+
 @app.post("/compare/ngram/")
 async def calculate_similarity_metric(docs: DocsIn):
-    return {'similarity_score': NGramCompare(docs.doc1, docs.doc2, docs.ngram_length).compare()}
+    results = NGramCompare.NGramCompare(
+    	left_doc = docs.doc1,
+    	right_doc = docs.doc2,
+    	ngram_length = docs.ngram_length
+    	).compare()
+    return {'similarity_score doc1 to doc2': results[0],'similarity_score doc2 to doc1': results[1]}

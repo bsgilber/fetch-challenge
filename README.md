@@ -13,7 +13,7 @@ Do you care about the ordering of words?
 > Yes, order matters because it is core to the windowing function the NGram model uses; except for NGram word count = 1, then order does not matter.
 
 What metric do you use to assign a numerical value to the similarity?
-> A ratio of matching NGrams divided by the number of unique NGrams between both documents. If we have 2 documents A and B, then Similarity = Intersection(A,B)/Union(A,B). I calculated in both directions for the order of the Intersection function matters to defend against the edge case where A is a subset of B.
+> A ratio of matching NGrams divided by the number of unique NGrams between both documents. If we have 2 documents A and B, then Similarity = Intersection(A,B)/Union(A,B). I calculated in both directions because the order of the Intersection function matters; there is an edge case where A is a subset of B that you want to be mindful of.
 
 What type of data structures should be used?  (Hint: Dictionaries and lists are particularly helpful data structures that can be leveraged to calculate the similarity of two pieces of text.)
 > List and list comprehension were primarily used. Dictionaries were used, but in a trivial manner.
